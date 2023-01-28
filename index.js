@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
-const dns = require('node:dns');
+const dns = require('dns');
 const {URL} = require('url');
 
 const mongoose = require('mongoose'); //need to be changed from import
