@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const dns = require('node:dns');
 const {URL} = require('url');
 
-import mongoose from 'mongoose';
+const mongoose = require('mongoose'); //need to be changed from import
 mongoose.connect(process.env.DATABASE_URL || 'mongodb://localhost/your-app-name');
 
 // Basic Configuration
