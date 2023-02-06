@@ -55,9 +55,6 @@ app.post("/api/shorturl", function(req,res){
     res.json({
       error: 'invalid url' 
     });
-    throw({
-      error: 'invalid url' 
-    });
   }
 
   
