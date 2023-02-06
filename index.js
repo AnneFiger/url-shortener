@@ -47,7 +47,7 @@ app.post("/api/shorturl", function(req,res){
     } else {
       //find if already entry first, then if not count index and stores it then create entry as below
       // const shortUrl = new Shorturl(req.body);
-      const shortUrl = new ShortUrl({
+      const shortUrl = new Shorturl({
         original_url : originalURL,
         short_url : 1 //index => counter+1 hardcode as 1 for first use
       }) // need to get index somehow in Db above? -goes same than using find ...
