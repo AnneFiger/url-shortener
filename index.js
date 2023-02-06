@@ -28,7 +28,9 @@ app.post("/api/shorturl", function(req,res){
   try {
     const urlObject = new URL(originalURL); 
   } catch (error) {
-    console.error(error);
+    res.json({
+      error: 'invalid url' 
+    });
   }
   
   // need condition saying if this doesn't work 
