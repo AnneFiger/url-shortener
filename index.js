@@ -27,6 +27,30 @@ app.post("/api/shorturl", function(req,res){
   const originalURL = req.body.url;
   try {
     const urlObject = new URL(originalURL); 
+    dns.lookup(urlObject.hostname, (err, address, family) => { // this need to be fixed so doesn't go through if thrown error above and then probably don't need dns.lookup
+      if (err) {
+        res.json({
+          error: 'invalid url' 
+        });
+      } else {
+        //find if already entry first, then if not count index and stores it then create entry as below
+        // const shortUrl = new Shorturl(req.body);
+        const shortUrl = new Shorturl({
+          original_url : originalURL,
+          short_url : 1 //index => counter+1 hardcode as 1 for first use
+        }) // need to get index somehow in Db above? -goes same than using find ...
+  
+        shortUrl.save()
+          .then((result) => {
+            res.json({
+              original_url: originalURL, short_url : 1
+              });
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      } 
+    });
   } catch (error) {
     res.json({
       error: 'invalid url' 
@@ -36,30 +60,7 @@ app.post("/api/shorturl", function(req,res){
     });
   }
 
-  dns.lookup(urlObject.hostname, (err, address, family) => { // this need to be fixed so doesn't go through if thrown error above and then probably don't need dns.lookup
-    if (err) {
-      res.json({
-        error: 'invalid url' 
-      });
-    } else {
-      //find if already entry first, then if not count index and stores it then create entry as below
-      // const shortUrl = new Shorturl(req.body);
-      const shortUrl = new Shorturl({
-        original_url : originalURL,
-        short_url : 1 //index => counter+1 hardcode as 1 for first use
-      }) // need to get index somehow in Db above? -goes same than using find ...
-
-      shortUrl.save()
-        .then((result) => {
-          res.json({
-            original_url: originalURL, short_url : 1
-            });
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    } 
-  });
+  
 });
 
 
