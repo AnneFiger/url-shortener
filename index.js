@@ -27,12 +27,13 @@ app.post("/api/shorturl", function(req,res){
   const originalURL = req.body.url;
   try {
     const urlObject = new URL(originalURL); 
-    dns.lookup(urlObject.hostname, (err, address, family) => { // this need to be fixed so doesn't go through if thrown error above and then probably don't need dns.lookup
-      if (err) {
-        res.json({
-          error: 'invalid url' 
-        });
-      } else {
+    // dns.lookup(urlObject.hostname, (err, address, family) => { 
+    //   if (err) {
+    //     res.json({
+    //       error: 'invalid url' 
+    //     });
+    //   } else {
+      
         //find if already entry first, then if not count index and stores it then create entry as below
         // const shortUrl = new Shorturl(req.body);
         const shortUrl = new Shorturl({
@@ -49,8 +50,8 @@ app.post("/api/shorturl", function(req,res){
           .catch((err) => {
             console.log(err);
           })
-      } 
-    });
+      //} 
+    //});
   } catch (error) {
     res.json({
       error: 'invalid url' 
