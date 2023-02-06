@@ -2,20 +2,19 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-// const bodyParser = require('body-parser');
 const dns = require('dns');
 const {URL} = require('url');
 const Shorturl = require('./models/shorturl');
 const mongoose = require('mongoose'); //needed to be changed from import
 
-mongoose.connect((process.env.DATABASE_URL || 'mongodb://localhost/url-shortener'), { useNewUrlParser: true, useUnifiedTopology: true }); // put uri in full here for localdev ?
+mongoose.connect((process.env.DATABASE_URL || 'mongodb://localhost/url-shortener'), { useNewUrlParser: true, useUnifiedTopology: true }); 
 
 // Basic Configuration
 const port = process.env.PORT || 3000;
 
 app.use(cors());
 
-app.use('/public', express.static(`${process.cwd()}/public`));
+app.use('/public', express.static(`${process.cwd()}/public`)); // need to check what this is doing exactly - important when retrieving a doc from DB?
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -23,21 +22,17 @@ app.get('/', function(req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
-// app.use(bodyParser.urlencoded({extended: true}));
-// app.use(bodyParser.json());
-
-// Your first API endpoint
-// app.get('/api/hello', function(req, res) {
-//   res.json({ greeting: 'hello API' });
-// });
-
+// POST API endpoint for url ready to be stored in DB
 app.post("/api/shorturl", function(req,res){
   const originalURL = req.body.url;
-  const urlObject = new URL(originalURL); // need condition saying if this doesn't work 
-  //need to send error straight away or else go through dns.lookup if valid -> see if still pb with urlencoded middleware added
-
-  //try commenting out validation and see if we create a collection etc in Db through here
-  //with one url if we query the same can it not create an additional one and if it isn't then it creates one 
+  try {
+    const urlObject = new URL(originalURL); 
+  } catch (error) {
+    console.error(error);
+  }
+  
+  // need condition saying if this doesn't work 
+  //need to send error straight away or else go through dns.lookup if valid 
 
   dns.lookup(urlObject.hostname, (err, address, family) => {
     if (err) {
