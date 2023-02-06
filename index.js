@@ -31,7 +31,9 @@ app.post("/api/shorturl", function(req,res){
     res.json({
       error: 'invalid url' 
     });
-    throw new Error('invalid url');
+    throw({
+      error: 'invalid url' 
+    });
   }
 
   dns.lookup(urlObject.hostname, (err, address, family) => { // this need to be fixed so doesn't go through if thrown error above and then probably don't need dns.lookup
