@@ -37,13 +37,14 @@ app.post("/api/shorturl", function(req,res){
       
         //find if already entry first, 
     
-        if(Shorturl.find({original_url: originalURL})){
+        if(Shorturl.find({original_url: originalURL})!==null){
+        
           res.json({
             error: 'already there' 
           });
           
         }else{
-        //then if not count index and stores it then create entry as below
+      //then if not count index and stores it then create entry as below
         // const shortUrl = new Shorturl(req.body);
         const shortUrl = new Shorturl({
           original_url : originalURL,
