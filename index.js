@@ -41,8 +41,8 @@ app.post("/api/shorturl", function(req,res){
           res.json({
             error: 'already there' 
           });
-        }
-
+          
+        }else{
         //then if not count index and stores it then create entry as below
         // const shortUrl = new Shorturl(req.body);
         const shortUrl = new Shorturl({
@@ -61,6 +61,11 @@ app.post("/api/shorturl", function(req,res){
           })
       //} 
     //});
+
+
+        }
+
+        
   } catch (error) {
     res.json({
       error: 'invalid url' 
