@@ -22,6 +22,7 @@ app.get('/', function(req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
+
 // POST API endpoint for url ready to be stored in DB
 app.post("/api/shorturl", function(req,res){
   const originalURL = req.body.url;
@@ -34,7 +35,13 @@ app.post("/api/shorturl", function(req,res){
     //     });
     //   } else {
       
-        //find if already entry first, then if not count index and stores it then create entry as below
+        //find if already entry first, 
+    
+        if(Shorturl.find({original_url: originalURL})){
+          return
+        }
+
+        //then if not count index and stores it then create entry as below
         // const shortUrl = new Shorturl(req.body);
         const shortUrl = new Shorturl({
           original_url : originalURL,
