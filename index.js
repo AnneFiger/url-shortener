@@ -38,7 +38,9 @@ app.post("/api/shorturl", function(req,res){
         //find if already entry first, 
     
         if(Shorturl.find({original_url: originalURL})){
-          return
+          res.json({
+            error: 'already there' 
+          });
         }
 
         //then if not count index and stores it then create entry as below
