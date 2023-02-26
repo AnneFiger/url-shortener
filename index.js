@@ -46,7 +46,7 @@ app.post("/api/shorturl", function(req,res){
 
           Shorturl.find({original_url: originalURL})
           .then((result) => {
-              if (result){
+              if (result.length != 0){
                 console.log(result.length)
                 res.json({
                   result, error: 'already there'});
