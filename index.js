@@ -36,35 +36,51 @@ app.post("/api/shorturl", function(req,res){
     //   } else {
       
         //find if already entry first, 
-    
-        if(Shorturl.find({original_url: originalURL})!==null){
-        
-          res.json({
-            error: 'already there' 
-          });
-          
-        }else{
-      //then if not count index and stores it then create entry as below
-        // const shortUrl = new Shorturl(req.body);
-        const shortUrl = new Shorturl({
-          original_url : originalURL,
-          short_url : 1 //index => counter+1 hardcode as 1 for first use
-        }) // need to get index somehow in Db above? -goes same than using find ...
-  
-        shortUrl.save()
+
+        // const findUrl = function(originalURL, done) {
+        //   Shorturl.findUrl({original_url: originalURL}, function(err, data){
+        //     if (err) return console.log(err);
+        //     done(null, data);
+        //   });
+        // };
+
+          Shorturl.find({original_url: originalURL})
           .then((result) => {
-            res.json({
-              original_url: originalURL, short_url : 1
-              });
+              if (result !== null){
+                res.json({
+                  result, error: 'already there'
+                  });
+              }else{
+           //then if not count index and stores it then create entry as below
+           // const shortUrl = new Shorturl(req.body);
+                const shortUrl = new Shorturl({
+                    original_url : originalURL,
+                    short_url : 1 //index => counter+1 hardcode as 1 for first use
+                }) // need to get index somehow in Db above? -goes same than using find ...
+  
+                shortUrl.save()
+                .then((result) => {
+                  res.json({
+                    original_url: originalURL, short_url : 1
+                  });
+                })
+              }
           })
-          .catch((err) => {
-            console.log(err);
-          })
+    
+        // if(Shorturl.find({original_url: originalURL})!==null){
+        //   res.json({
+        //     error: 'already there',  
+        //   }); //does not work as when I think this should be null 
+        //   //it isn't ie sending url that hasn't be sent before- probably need then 
+        // }else{
+
+     
+          // .catch((err) => {
+          //   console.log(err);
+          // })
       //} 
     //});
 
-
-        }
 
         
   } catch (error) {
