@@ -47,9 +47,9 @@ app.post("/api/shorturl", function(req,res){
           Shorturl.find({original_url: originalURL})
           .then((result) => {
               if (result){
+                console.log(result.length)
                 res.json({
-                  result, error: 'already there'
-                  });
+                  result, error: 'already there'});
               }else{
            //then if not count index and stores it then create entry as below
            // const shortUrl = new Shorturl(req.body);
