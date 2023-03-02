@@ -29,16 +29,22 @@ app.get('/', function(req, res) {
 app.post("/api/shorturl", function(req,res){
   const originalURL = req.body.url;
   try {
-    const urlObject = new URL(originalURL); 
-    // dns.lookup(urlObject.hostname, (err, address, family) => { 
-    //   if (err) {
-    //     res.json({
-    //       error: 'invalid url' 
-    //     });
-    //   } else {
-      
-        //find if already entry first, 
+    const urlObject = new URL(originalURL);
+    //Increment counter and adds to then add it to an entry created below
+    Countermodel.findOneAndUpdate(
+      {id:'autoval'},
+      {"$inc":{"seq":1}},
+      {new:true},(err,cd)=>{
 
+        let seqId;
+          if(cd==null){
+            const newval = new Countermodel({id:"autoval",seq:1})
+            newval.save()
+            seqId=1
+          }else{
+            seqId=cd.seq
+          }
+          //find if already entry first,   
           Shorturl.find({original_url: originalURL})
           .then((result) => {
               if (result.length != 0){
@@ -46,40 +52,38 @@ app.post("/api/shorturl", function(req,res){
                 res.json({
                   result, error: 'already there'});
               }else{
-           //then if not increment counter and adds it to an entry created as below
-                Countermodel.findOneAndUpdate(
-                  {id:'autoval'},
-                  {"$inc":{"seq":1}},
-                  {new:true},(err,cd)=>{
-
-                    let seqId;
-                      if(cd==null){
-                        const newval = new Countermodel({id:"autoval",seq:1})
-                        newval.save()
-                        seqId=1
-                      }else{
-                        seqId=cd.seq
-                      }
-                      // const shortUrl = new Shorturl(req.body);
-                      const shortUrl = new Shorturl({
-                          original_url : originalURL,
-                          short_url : seqId
-                          })   
-                          shortUrl.save()
-                          .then((result) => {
-                              res.json({
-                              original_url: originalURL, short_url : seqId
-                              });
-                          })  
-
-
-                  }
-                )
-           
+              // const shortUrl = new Shorturl(req.body);
+              const shortUrl = new Shorturl({
+                  original_url : originalURL,
+                  short_url : seqId
+              })   
+              shortUrl.save()
+              .then((result) => {
+                res.json({
+                original_url: originalURL, short_url : seqId
+                });
+              }) 
   
                 
-              }
+            }
           })
+
+
+           
+
+
+      }
+    ) 
+    // dns.lookup(urlObject.hostname, (err, address, family) => { 
+    //   if (err) {
+    //     res.json({
+    //       error: 'invalid url' 
+    //     });
+    //   } else {
+      
+        
+
+          
         
   } catch (error) {
     res.json({
