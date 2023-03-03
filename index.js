@@ -5,7 +5,7 @@ const app = express();
 const dns = require('dns');
 const {URL} = require('url');
 const Shorturl = require('./models/shorturl');
-const Countermodel = require('./models/shorturl');
+const Counter = require('./models/counter');
 const mongoose = require('mongoose'); //needed to be changed from import
 
 mongoose.connect((process.env.DATABASE_URL || 'mongodb://localhost/url-shortener'), { useNewUrlParser: true, useUnifiedTopology: true }); 

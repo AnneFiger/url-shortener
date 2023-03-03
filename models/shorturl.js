@@ -9,16 +9,4 @@ const shortUrlSchema = new Schema({
 
 const Shorturl = mongoose.model('Shorturl', shortUrlSchema);
 
-const counterSchema = new Schema({
-    id:{
-      type:String
-    },
-    seq:{
-      type:Number
-    }
-  });
-  
-const Countermodel= mongoose.model("counter", counterSchema);
-
 module.exports = Shorturl;
-module.exports = Countermodel;
