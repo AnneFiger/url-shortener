@@ -53,7 +53,8 @@ app.post("/api/shorturl", function(req,res){
                   {new:true},(err,cd)=>{
 
                     let seqId;
-                      if(cd==null){
+                      if(cd==null)
+                      {
                         const newval = new Countermodel({id:"autoval",seq:1})
                         newval.save()
                         seqId=1
