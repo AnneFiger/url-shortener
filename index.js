@@ -47,7 +47,7 @@ app.post("/api/shorturl", function(req,res){
                   result, error: 'already there'});
               }else{
            //then if not increment counter and adds it to an entry created as below
-                Countermodel.findOneAndUpdate(
+                Counter.findOneAndUpdate(
                   {id:'autoval'},
                   {"$inc":{"seq":1}},
                   {new:true},(err,cd)=>{
