@@ -91,26 +91,29 @@ app.post("/api/shorturl", function(req,res){
 
 //need get route to direct to url
 
-app.get('/api/shorturl/3', function(req, res) {
-  Shorturl.find({original_url: "https://www.metoffice.gov.uk"})
-  .then((result)=>{
-    const variableinxformat = result[0]['short_url'];//['short_url]';
-    console.log(variableinxformat);
-    console.log(typeof variableinxformat);
-  })
-});
-
-// app.get("/api/shorturl/:shorturl", function(req, res){
-//   const string = req.params.shorturl;
-//   const shorturl = parseInt(string);
-//   Shorturl.find({short_url: shorturl})
+// app.get('/api/shorturl/3', function(req, res) {
+//   Shorturl.find({original_url: "https://www.metoffice.gov.uk"})
 //   .then((result)=>{
-//     const variableinstringformat = result['original_url'];
-//     console.log(variableinstringformat);
-//     // const urltoredirectto = encodeURI(`${variableinstringformat}`) //need encodeURI???
-//     // res.redirect(urltoredirectto); //might need redirect 301 as external url
+//     const variableinxformat = result[0]['short_url'];//['short_url]';
+//     console.log(variableinxformat); //3
+//     console.log(typeof variableinxformat); //number
 //   })
 // });
+
+app.get("/api/shorturl/:shorturl", function(req, res){
+  const gettingthis = req.params.shorturl;
+  console.log(typeof gettingthis);
+  const shorturl = parseInt(gettingthis);
+  console.log(typeof shorturl);
+  Shorturl.find({short_url: shorturl})
+  .then((result)=>{
+    console.log(result);
+    const variableinstringformat = result[0]['original_url'];
+    console.log(variableinstringformat);
+    // const urltoredirectto = encodeURI(`${variableinstringformat}`) //need encodeURI???
+    // res.redirect(urltoredirectto); //might need redirect 301 as external url
+  })
+});
 
 
 app.listen(port, function() {
