@@ -94,9 +94,9 @@ app.post("/api/shorturl", function(req,res){
 app.get('/api/shorturl/3', function(req, res) {
   Shorturl.find({original_url: "https://www.metoffice.gov.uk"})
   .then((result)=>{
-    const variableinxformat = result['short_url'];
+    const variableinxformat = result;//['short_url]';
     console.log(variableinxformat);
-    console.log(typeof variableinxformat);
+    // console.log(typeof variableinxformat);
   })
 });
 
