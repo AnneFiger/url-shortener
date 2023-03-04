@@ -102,16 +102,17 @@ app.post("/api/shorturl", function(req,res){
 
 app.get("/api/shorturl/:shorturl", function(req, res){
   const gettingthis = req.params.shorturl;
-  console.log(typeof gettingthis);
+  console.log(gettingthis); //does this have quotes?
+  console.log(typeof gettingthis);// string
   const shorturl = parseInt(gettingthis);
-  console.log(typeof shorturl);
+  console.log(typeof shorturl);// number
   Shorturl.find({short_url: shorturl})
   .then((result)=>{
     console.log(result);
     const variableinstringformat = result[0]['original_url'];
-    console.log(variableinstringformat);
+    console.log(variableinstringformat); //https://www.metoffice.gov.uk
     // const urltoredirectto = encodeURI(`${variableinstringformat}`) //need encodeURI???
-    // res.redirect(urltoredirectto); //might need redirect 301 as external url
+    res.redirect(variableinstringformat); //might need redirect 301 as external url
   })
 });
 
