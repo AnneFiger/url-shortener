@@ -90,12 +90,17 @@ app.post("/api/shorturl", function(req,res){
 });
 
 //need get route to direct to url
+// app.get("api/shorturl/3", function(req, res){
+//   res.redirect("https://www.metoffice.gov.uk")
+// });
+
 app.get("api/shorturl/:shorturl", function(req, res){
   const shorturl = req.params.shorturl
   Shorturl.find({short_url: shorturl})
   .then((result)=>{
     const variablemaybeinstringformat = result[original_url]
-    res.redirect(`${variablemaybeinstringformat}`)
+    const urltoredirectto = encodeURI(`${variablemaybeinstringformat}`)
+    res.redirect(urltoredirectto);
   })
 });
 
