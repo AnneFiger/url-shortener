@@ -96,7 +96,7 @@ app.post("/api/shorturl", function(req,res){
 // });
 
 app.get("/api/shorturl/:shorturl", function(req, res){
-  const shorturl = req.params.shorturl
+  const shorturl = parseInt(req.params.shorturl);
   Shorturl.find({short_url: shorturl})
   .then((result)=>{
     const variablemaybeinstringformat = result['original_url']
