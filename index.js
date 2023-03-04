@@ -28,7 +28,7 @@ app.get('/', function(req, res) {
 // POST API endpoint for url ready to be stored in DB
 app.post("/api/shorturl", function(req,res){
   const originalURL = req.body.url;
-  // try {
+  try {
     const urlObject = new URL(originalURL); 
     dns.lookup(urlObject.hostname, (err, address, family) => { 
       // if (err) {
@@ -83,11 +83,11 @@ app.post("/api/shorturl", function(req,res){
           })
         // }     
       });
-  // } catch (error) {
-  //   res.json({
-  //     error: 'invalid url' 
-  //   });
-  // }
+  } catch (error) {
+    res.json({
+      error: 'invalid url' 
+    });
+  }
 });
 
 //need get route to direct to url
