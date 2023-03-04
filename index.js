@@ -90,7 +90,7 @@ app.post("/api/shorturl", function(req,res){
 });
 
 //need get route to direct to url
-app.get('api/shorturl/3', function(req, res) {
+app.get('/api/shorturl/3', function(req, res) {
   res.send("hello");
 });
 
