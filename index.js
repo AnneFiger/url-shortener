@@ -91,19 +91,23 @@ app.post("/api/shorturl", function(req,res){
 
 //need get route to direct to url
 
-// app.get('/api/shorturl/3', function(req, res) {
-//   res.send("hello");
-// });
-
-app.get("/api/shorturl/:shorturl", function(req, res){
-  const shorturl = parseInt(req.params.shorturl);
-  Shorturl.find({short_url: shorturl})
+app.get('/api/shorturl/3', function(req, res) {
+  Shorturl.find({original_url: "https://www.metoffice.gov.uk"})
   .then((result)=>{
-    const variablemaybeinstringformat = result['original_url']
-    const urltoredirectto = encodeURI(`${variablemaybeinstringformat}`)
-    res.redirect(urltoredirectto);
+    const variableinxformat = typeOf(result['short_url'])
+    console.log(variableinxformat)
   })
 });
+
+// app.get("/api/shorturl/:shorturl", function(req, res){
+//   const shorturl = parseInt(req.params.shorturl);
+//   Shorturl.find({short_url: shorturl})
+//   .then((result)=>{
+//     const variableinstringformat = result['original_url']
+//     const urltoredirectto = encodeURI(`${variableinstringformat}`) //need encodeURI???
+//     res.redirect(urltoredirectto); //might need redirect 301 as external url
+//   })
+// });
 
 
 app.listen(port, function() {
