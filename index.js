@@ -96,7 +96,7 @@ app.get('/api/shorturl/3', function(req, res) {
   .then((result)=>{
     const variableinxformat = result[0]['short_url'];//['short_url]';
     console.log(variableinxformat);
-    // console.log(typeof variableinxformat);
+    console.log(typeof variableinxformat);
   })
 });
 
