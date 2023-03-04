@@ -99,7 +99,7 @@ app.get("/api/shorturl/:shorturl", function(req, res){
   const shorturl = req.params.shorturl
   Shorturl.find({short_url: shorturl})
   .then((result)=>{
-    const variablemaybeinstringformat = result[original_url]
+    const variablemaybeinstringformat = result['original_url']
     const urltoredirectto = encodeURI(`${variablemaybeinstringformat}`)
     res.redirect(urltoredirectto);
   })
