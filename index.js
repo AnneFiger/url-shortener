@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const dns = require('dns');
+// const dns = require('dns');
 const {URL} = require('url');
 const Shorturl = require('./models/shorturl');
 const Counter = require('./models/counter');
@@ -90,8 +90,8 @@ app.post("/api/shorturl", function(req,res){
 });
 
 //need get route to direct to url
-app.get('api/shorturl/3', function(req, res){
-  res.redirect('https://www.metoffice.gov.uk')
+app.get('api/shorturl/3', function(req, res) {
+  res.send("hello");
 });
 
 // app.get("api/shorturl/:shorturl", function(req, res){
