@@ -31,11 +31,13 @@ app.post("/api/shorturl", function(req,res){
   try {
     const urlObject = new URL(originalURL); 
     dns.lookup(urlObject.hostname, (err, address, family) => { 
-      // if (err) {
-      //   res.json({
-      //     error: 'invalid url' 
-      //   });
-      // } else {
+      if (err) {
+        res.json({
+          error: 'invalid url' 
+        });
+      } else {
+
+        
       
         //find if already entry first, 
 
@@ -80,9 +82,9 @@ app.post("/api/shorturl", function(req,res){
   
                 
               }
-          })
-        // }     
-      });
+        })
+      }     
+    });
   } catch (error) {
     res.json({
       error: 'invalid url' 
