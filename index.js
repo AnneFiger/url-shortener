@@ -90,16 +90,14 @@ app.post("/api/shorturl", function(req,res){
 });
 
 //need get route to direct to url
-app.get("api/shorturl/:shorturl",function(req, res, next){
+app.get("api/shorturl/:shorturl", function(req, res){
   const shorturl = req.params.shorturl
   Shorturl.find({short_url: shorturl})
   .then((result)=>{
     const variablemaybeinstringformat = result[original_url]
-  })
-  next();
-  }, function(req, res){
     res.redirect(`${variablemaybeinstringformat}`)
-  });
+  })
+});
 
 
 app.listen(port, function() {
